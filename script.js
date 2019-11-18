@@ -15,8 +15,18 @@ function searchWeather(searchTerm){
     fetch(`http://api.openweathermap.org/data/2.5/forecast?${searchMethod}=${searchTerm}&APPID=${appId}&units=${units}`).then(result =>{
         return result.json();
     }).then(result =>{
-        //let arr=result.list.map(a=>a.dt_txt)
-        console.log(result.list)
+        let arr=result.list.map(a=>a.dt_txt)
+        arr.forEach(e=>console.log(getDayOfWeek(e)))
+       // arr.forEach(e=>console.log(e.getDay()))
+        
+        // result.list.forEach(e=>function(){
+        //     if(e.dt_txt=='2019-11-18 18:00:00'){
+        //         console.log(e.dt_txt)
+        //     }
+        // })
+        
+
+        
         // let new_arr=Object.values(arr)
         // console.log(new_arr.lenght)
         result.list.forEach(element => {
@@ -70,9 +80,11 @@ function initBackground(resultFromServer){
    const dateElement=document.getElementById("date")
    const dayOfWeek=document.getElementById("dayHeader")
 
+   let itemsArr=[];
 
-function load(resultFromServer){
    
+function load(resultFromServer){
+
 
    weatherIcon.src='http://openweathermap.org/img/wn/'+resultFromServer.list[0].weather[0].icon+'.png';
 
@@ -84,11 +96,14 @@ function load(resultFromServer){
    cityHeader.innerHTML=resultFromServer.city.name;
    humidityElement.innerHTML="Humidity levels at   "+resultFromServer.list[0].main.humidity+"%"
    dateElement.innerHTML="Date: "+resultFromServer.list[0].dt_txt
-   dayOfWeek.innerHTML=getDay();
+   dayOfWeek.innerHTML=getDayOfWeek(new Date());
    
    let weatherContainer=document.getElementById("weatherContainer")
    weatherContainer.style.visibility="visible";
-
+   
+   
+   itemsArr.push(resultFromServer.city.name)
+   localStorage.setItem('cities', JSON.stringify(itemsArr))
 }
 
 
@@ -101,8 +116,8 @@ document.getElementById("searchBtn").addEventListener("click",()=>{
     }
 })
 
-function getDay(){
-    let day=new Date().getDay();
+function getDayOfWeek(date){
+    let day=new Date(date).getDay();
     switch (day){
         case 0:
             day="Sunday"
