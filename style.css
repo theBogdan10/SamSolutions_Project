@@ -170,3 +170,20 @@ ul img:hover{
     -ms-transform: scale(1.1);
     transform: scale(1.1);
 }
+
+
+.daysWeather{
+   
+        background-color: rgba(0, 0, 0, 0.25);
+        box-shadow: 1px 1px 5px black;
+        padding: 20px;
+        border-radius: 10px;
+        position:absolute;
+      
+        text-align: center;
+        top: 25%;
+        margin-top:600px;
+        margin-left: 35%;
+
+    
+}
