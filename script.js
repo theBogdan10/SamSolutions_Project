@@ -4,13 +4,15 @@ let searchMethod;
 
 let info= document.getElementById("first")
 let div
-let link='http://openweathermap.org/img/wn/'
+let icon=document.getElementById("documentIconsImgs")
+let imgg
 function getSearchMethod(searchTerm){
     if(searchTerm.lenght===5 && Number.parseInt(searchTerm)+''===searchTerm)
         searchMethod="zip"
     else
         searchMethod="q"    
 }
+
 
 function searchWeather(searchTerm){
     getSearchMethod(searchTerm)
@@ -23,13 +25,15 @@ function searchWeather(searchTerm){
             let arr=result.list
             arr.forEach(function(e){
                 if (e.dt_txt.indexOf('15:00')>0){
-                    console.log(e)
-                    console.log(getDayOfWeek(e.dt_txt))
                     div=document.createElement("div")
-                    div.innerHTML=(getDayOfWeek(e.dt_txt)+"<br>"+e.weather[0].description +"<br>"+e.main.temp+" &#8451"+ "<hr>")
-                    //loadDays(e)
+                    div.innerHTML=("<b>"+getDayOfWeek(e.dt_txt)+"</b>"+"<br>"+e.weather[0].description+"<br>"+e.main.temp+" &#8451"+ "<hr>")
+                    imgg=document.createElement("img")
+                    imgg.src='http://openweathermap.org/img/wn/'+e.weather[0].icon+'.png'
+                    info.appendChild(imgg) 
                     info.appendChild(div)
+                    info.style.visibility="visible"
                     
+                       
 
                 }
             })
@@ -66,6 +70,7 @@ function initBackground(resultFromServer){
 
         case 'Snow':
                 document.body.style.backgroundImage="url('img/snowy.jpg')"
+                document.body.style.color="black"
         break;   
        default:
 
@@ -109,37 +114,13 @@ function load(resultFromServer){
 }
 
 
-
-function loadDays(response){
-    weatherIcon.src='http://openweathermap.org/img/wn/'+response.icon+'.png';
-
-    let resultDescription=resultFromServer.list[0].weather[0].description;
- 
-    weatherDescriptionHeader.innerText=resultDescription.charAt(0).toUpperCase()+resultDescription.slice(1);
-    temperatureElement.innerHTML=Math.floor(resultFromServer.list[0].main.temp)+" &#8451";
-    windSpeedElement.innerHTML="Winds at   "+ Math.floor(resultFromServer.list[0].wind.speed)+"m/s";
-    cityHeader.innerHTML=resultFromServer.city.name;
-    humidityElement.innerHTML="Humidity levels at   "+resultFromServer.list[0].main.humidity+"%"
-    dateElement.innerHTML="Date: "+resultFromServer.list[0].dt_txt
-    dayOfWeek.innerHTML=getDayOfWeek(new Date());
-    
-    let weatherContainer=document.getElementById("weatherContainer")
-    weatherContainer.style.visibility="visible";
-    
-    
-    itemsArr.push(resultFromServer.city.name)
-    localStorage.setItem('cities', JSON.stringify(itemsArr))
-}
-
-
-
-
 document.getElementById("searchBtn").addEventListener("click",()=>{
     let searchTerm=document.getElementById("searchInput").value;
     if(searchTerm){
         searchWeather(searchTerm)
     }
 })
+
 
 function getDayOfWeek(date){
     let day=new Date(date).getDay();

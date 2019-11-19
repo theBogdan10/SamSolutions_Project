@@ -5,13 +5,14 @@
 
 body{
     background:  no-repeat center top fixed;
-
-        position: relative;
-     background-size: cover;
+    position: relative;
+    background-size: cover;
     background-color: #D6FAF5;
     color: white;
     font-family: 'Lato', sans-serif;
-    height: 100%;
+    box-sizing: border-box;
+	min-height: 100%;
+    
 }
 
 .container{
@@ -38,15 +39,15 @@ body{
 }
 
 #weatherContainer{
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 1px 1px 5px black;
     padding: 20px;
     border-radius: 10px;
     position:absolute;
     visibility: hidden;
     text-align: center;
-    top: 25%;
-    margin-top:25%;
+   
+    margin-top:100px;
     margin-left: 35%;
 }
 
@@ -121,7 +122,7 @@ body{
 }
 
 hr{
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
 }
 
 .header{
@@ -173,17 +174,43 @@ ul img:hover{
 
 
 .daysWeather{
-   
-        background-color: rgba(0, 0, 0, 0.25);
+        
+        background-color: rgba(0, 0, 0, 0.3);
         box-shadow: 1px 1px 5px black;
         padding: 20px;
         border-radius: 10px;
-        position:absolute;
-      
+        position: relative;;
         text-align: center;
+        margin: auto 0;
         top: 25%;
-        margin-top:600px;
-        margin-left: 35%;
-
+        width: 200px;
+        margin-top:500px;
+        margin-left: 38.5%;
+        font-size: 20px;
+        visibility: hidden;
+        margin-bottom: 20px;
     
+}
+
+
+.footer{
+   
+    opacity: 0.9;
+    background-color: black;
+    width: 100%;
+    position: static;
+    text-align: center;
+    bottom: 0;
+    height: 100px;
+    padding-top:30px;
+}   
+
+.footer hr{
+    border: 0.5px solid white;
+    opacity: 0.1;
+    margin-top: 30px;
+}
+
+.footer p{
+    opacity: 0.5;
 }
