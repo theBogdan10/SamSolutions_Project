@@ -53,7 +53,7 @@ function searchWeather(searchTerm){
 function initBackground(resultFromServer){
    switch (resultFromServer.list[0].weather[0].main) {
        case 'Clear':
-            document.body.style.backgroundImage="url('img/clear2.jpg')"
+            document.body.style.backgroundImage="url('img/clear.jpg')"
            break;
 
         case 'Clouds':
@@ -80,7 +80,7 @@ function initBackground(resultFromServer){
 }
 
 
-   const weatherDescriptionHeader=document.getElementById("weatherDescriptionHeader");
+   const weatherDescriptionHeader=document.getElementById("weatherDescriptionHeader")
    const temperatureElement=document.getElementById("temperature")
    const humidityElement=document.getElementById("humidity")
    const windSpeedElement=document.getElementById("windSpeed")
