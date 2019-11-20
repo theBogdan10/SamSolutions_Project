@@ -2,16 +2,19 @@ const appId='d4424ee2624d55b25cb2db519fe2123d';
 const units='metric';
 let searchMethod;
 
-let info= document.getElementById("first")
-let div
-let icon=document.getElementById("documentIconsImgs")
-let imgg
+
 function getSearchMethod(searchTerm){
     if(searchTerm.lenght===5 && Number.parseInt(searchTerm)+''===searchTerm)
         searchMethod="zip"
     else
         searchMethod="q"    
 }
+
+let info= document.getElementById("first")
+let div
+let icon=document.getElementById("documentIconsImgs")
+let imgg
+
 
 
 function searchWeather(searchTerm){
@@ -24,25 +27,26 @@ function searchWeather(searchTerm){
         .then(result =>{
             let arr=result.list
             arr.forEach(function(e){
+                div=document.createElement("div")
+                imgg=document.createElement("img")
                 if (e.dt_txt.indexOf('15:00')>0){
-                    div=document.createElement("div")
+                   
                     div.innerHTML=("<b>"+getDayOfWeek(e.dt_txt)+"</b>"+"<br>"+e.weather[0].description+"<br>"+e.main.temp+" &#8451"+ "<hr>")
-                    imgg=document.createElement("img")
-                    imgg.src='http://openweathermap.org/img/wn/'+e.weather[0].icon+'.png'
-                    info.appendChild(imgg) 
-                    info.appendChild(div)
-                    info.style.visibility="visible"
-                    
-                       
+                    imgg.src='http://openweathermap.org/img/wn/'+e.weather[0].icon+'.png';
 
-                }
+                    info.append(imgg) 
+                    info.append(div)
+                   
+                    
+                    
+                }   
+               // info.innerHTML=('')
+               // div.remove()
             })
-            
-        
-        
-            
+                info.style.visibility="visible"    
                 load(result)
                 initBackground(result) 
+                
                 
         })//.catch(err=>console.error("Ooops! Try again"))
 
@@ -52,7 +56,7 @@ function searchWeather(searchTerm){
 function initBackground(resultFromServer){
    switch (resultFromServer.list[0].weather[0].main) {
        case 'Clear':
-            document.body.style.backgroundImage="url('img/clear.jpg')"
+            document.body.style.backgroundImage="url('img/clear2')"
            break;
 
         case 'Clouds':
@@ -62,7 +66,7 @@ function initBackground(resultFromServer){
         case 'Rain':  
         case 'Drizzle':
         case 'Mist':
-            document.body.style.backgroundImage="url('img/rainy.jpg')"
+            document.body.style.backgroundImage="url('img/rain.jpg')"
            break; 
         case 'Thunderstorm':
                 document.body.style.backgroundImage="url('img/stormy.jpg')"
@@ -115,10 +119,12 @@ function load(resultFromServer){
 
 
 document.getElementById("searchBtn").addEventListener("click",()=>{
+    div.remove()
     let searchTerm=document.getElementById("searchInput").value;
     if(searchTerm){
         searchWeather(searchTerm)
     }
+    
 })
 
 
@@ -151,3 +157,9 @@ function getDayOfWeek(date){
    }
    return day;
 }
+
+
+const form = document.getElementById('form');
+let input= document.getElementById('searchInput')
+input.value = localStorage.getItem(input.name)
+form.onchange = e => localStorage.setItem(e.target.name, e.target.value);
