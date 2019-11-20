@@ -35,17 +35,14 @@ function searchWeather(searchTerm){
                     imgg.src='http://openweathermap.org/img/wn/'+e.weather[0].icon+'.png';
 
                     info.append(imgg) 
-                    info.append(div)
-                   
-                    
-                    
+                    info.append(div)  
                 }   
-               // info.innerHTML=('')
-               // div.remove()
+              
             })
+                initBackground(result) 
                 info.style.visibility="visible"    
                 load(result)
-                initBackground(result) 
+                
                 
                 
         })//.catch(err=>console.error("Ooops! Try again"))
@@ -56,7 +53,7 @@ function searchWeather(searchTerm){
 function initBackground(resultFromServer){
    switch (resultFromServer.list[0].weather[0].main) {
        case 'Clear':
-            document.body.style.backgroundImage="url('img/clear2')"
+            document.body.style.backgroundImage="url('img/clear2.jpg')"
            break;
 
         case 'Clouds':
@@ -119,7 +116,7 @@ function load(resultFromServer){
 
 
 document.getElementById("searchBtn").addEventListener("click",()=>{
-    div.remove()
+    info.innerHTML="";
     let searchTerm=document.getElementById("searchInput").value;
     if(searchTerm){
         searchWeather(searchTerm)
